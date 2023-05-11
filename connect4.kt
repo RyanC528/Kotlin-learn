@@ -1,13 +1,13 @@
 //basic connect for game. First project in kotlin
 
 class Column {
-        private var tokens = arrayOf(0 0 0 0 0 0)
+        private var tokens = arrayOf(0, 0, 0, 0, 0, 0)
         private var height = 0
         private val maxHeight = 6
 
         fun addTokenCol(){
             if(height == (maxHeight-1)){
-                tokens.set(hieght, 1)
+                tokens.set(height, 1)
                 height++
             }else{
                 println("error, column full")
@@ -25,7 +25,7 @@ class Column {
 
 class Board{
     var rows = Array(7) { Column() }
-    var i
+    var i = 0
 
     fun addToken(rowNum: Int){
         if((rowNum > 0)&&(rowNum < 8)){
@@ -51,7 +51,7 @@ class Board{
 
 fun main(args : Array<String>){
     var gameBoard = Board()
-    var userInput: Int = 0
+    var userInput
 
     println("Begining game")
 
