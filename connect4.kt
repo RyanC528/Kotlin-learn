@@ -1,67 +1,22 @@
-//basic connect for game. First project in kotlin
+import java.util.Scanner
 
-class Column {
-        private var tokens = arrayOf(0, 0, 0, 0, 0, 0)
-        private var height = 0
-        private val maxHeight = 6
+fun main(args: Array<String>){
+    val reader = Scanner(System.`in`)
 
-        fun addTokenCol(){
-            if(height == (maxHeight-1)){
-                tokens.set(height, 1)
-                height++
-            }else{
-                println("error, column full")
-            }
-        }
+    println("enter first numeber to add:")
 
-        fun printCol(tokLoc: Int){
-            if(tokens[tokLoc] == 0){
-                print(" * ")
-            }else{
-                print( " O ")
-            }
-        }
-}
+    var input1:Int = reader.nextInt()
 
-class Board{
-    var rows = Array(7) { Column() }
-    var i = 0
+    println("You entered: $input1")
 
-    fun addToken(rowNum: Int){
-        if((rowNum > 0)&&(rowNum < 8)){
-            rows[rowNum -1].addTokenCol()
-        }else{
-            println("Error, non valid row")
-        }
+    println("enter second number to add:")
 
+    var input2:Int = reader.nextInt()
 
-    }
+    println("You ebtered: $input2")
+    
+    var output:Int = input1 + input2
 
-    fun printBoard(){
-        for( i in 0..5){
-            for(row in rows){
-                row.printCol(i)
-            }
-            print("\n")
-        }
-
-    }
-
-}
-
-fun main(args : Array<String>){
-    var gameBoard = Board()
-    var userInput
-
-    println("Begining game")
-
-    while(true){
-        gameBoard.printBoard()
-        println("Enter a number between 1-7 ")
-        userInput = readLine()
-
-        gameBoard.addToken(userInput)
-
-    }
+    println("The sum is: $output")
 
 }
