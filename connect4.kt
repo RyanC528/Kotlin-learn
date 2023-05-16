@@ -1,22 +1,80 @@
 import java.util.Scanner
 
-fun main(args: Array<String>){
+class Turn{
+    private var turnCount = 1
+    public var playerTurn = 1
+
+    fun incTurn(){
+        turnCount++
+        playerTurn = turnCount % 2
+    }
+}
+
+class Column {
+    private var tokens = arrayOf(0, 0, 0, 0, 0, 0)
+    private var height = 0
+    private val maxHeight = 6
+
+    fun addTokenCol(player: Int){
+        if(height == (maxHeight-1)){
+            tokens.set(height,player)
+            height++
+        }else{
+            println("Error, Column Full")
+        }
+    }
+
+    fun printCol(tokLoc: Int){
+        if(tokens[tokLoc] == 0){
+            print(" * ")
+        }else{
+            print(" 0 ")
+        }
+    }
+}
+
+class Board{
+    private var rows = Array(7){Column()}
+
+    fun addToken(rowNum: Int,player:Int){
+        if((rowNum > 0 )&&(rowNum < 8)){
+            rows[rowNum - 1].addTokenCol(player)
+        }else{
+            println("Error, non valid row")
+        }
+    }
+
+    fun printBoard(){
+        for(i in 0..5){
+            for(row in rows){
+                row.printCol(i)
+            }
+            print("\n")
+        }
+    }
+
+}
+
+fun main() {
+    var gameBoard = Board()
+    var timer = Turn()
     val reader = Scanner(System.`in`)
 
-    println("enter first numeber to add:")
+    println("Enter 1 to begin")
 
-    var input1:Int = reader.nextInt()
+    var userInput = reader.nextInt()
 
-    println("You entered: $input1")
+    println("Beginning Game:")
 
-    println("enter second number to add:")
+    while(true){
+        println("Enter row number:")
+        gameBoard.printBoard()
 
-    var input2:Int = reader.nextInt()
+        userInput = reader.nextInt()
 
-    println("You ebtered: $input2")
-    
-    var output:Int = input1 + input2
+        gameBoard.addToken(userInput,timer.playerTurn)
 
-    println("The sum is: $output")
+        timer.incTurn()
+    }
 
 }
