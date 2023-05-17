@@ -1,5 +1,9 @@
 import java.util.Scanner
 
+fun winCheck(gameBoard: Board, player: Turn){
+
+}
+
 class Turn{
     private var turnCount = 1
     public var playerTurn = 1
@@ -10,44 +14,30 @@ class Turn{
     }
 }
 
-class Column {
-    private var tokens = arrayOf(0, 0, 0, 0, 0, 0)
-    private var height = 0
-    private val maxHeight = 6
-
-    fun addTokenCol(player: Int){
-        if(height == (maxHeight-1)){
-            tokens.set(height,player)
-            height++
-        }else{
-            println("Error, Column Full")
-        }
-    }
-
-    fun printCol(tokLoc: Int){
-        if(tokens[tokLoc] == 0){
-            print(" * ")
-        }else{
-            print(" 0 ")
-        }
-    }
-}
 
 class Board{
-    private var rows = Array(7){Column()}
+    private var board = Array(7){IntArray(6)}
+    private var index = IntArray(7)
 
     fun addToken(rowNum: Int,player:Int){
         if((rowNum > 0 )&&(rowNum < 8)){
-            rows[rowNum - 1].addTokenCol(player)
+            board[rowNum][index[rowNum-1]] = player + 1
+            index[rowNum-1]++
         }else{
             println("Error, non valid row")
         }
     }
 
     fun printBoard(){
-        for(i in 0..5){
-            for(row in rows){
-                row.printCol(i)
+        for(i in 5 downTo 0){
+            for( j in 6 downTo 0){
+                if(board[j][i] == 1){
+                    print(" B ")
+                }else if(board[j][i] == 2){
+                    print(" W ")
+                }else{
+                    print(" O ")
+                }
             }
             print("\n")
         }
@@ -71,6 +61,11 @@ fun main() {
         gameBoard.printBoard()
 
         userInput = reader.nextInt()
+
+        if(userInput == 9){
+            println("Exit Command Entered")
+            break
+        }
 
         gameBoard.addToken(userInput,timer.playerTurn)
 
